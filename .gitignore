@@ -1,2 +1,47 @@
-.vscode
-weather-dashboard/code/config.py
+# ──────────────────────────────────────────────────────────────────
+#   .gitignore — Archivos ignorados para DIY Projects repo
+#  Generado automáticamente por new-diy-project.sh v2.1
+# ──────────────────────────────────────────────────────────────────
+
+.vscode/
+*.pyc
+*.log
+*.bak
+
+# ── Configuración local / credenciales ────────────────────────────
+# Archivos que NO deben subirse al repositorio
+secrets.toml
+.env
+.env.local
+.env.*.local
+
+# Archivos específicos de Nextion (si existen)
+*.NexUploads/
+*.NexFwUploads/
+*.HMI/
+
+# Logs del IDE
+*.log
+
+# Caché Python
+__pycache__/
+*.pyo
+*.pyd
+
+# ──────────────────────────────────────────────────────────────────
+#   Archivos temporales o de entorno
+# ──────────────────────────────────────────────────────────────────
+*.tmp
+*.temp
+
+# ──────────────────────────────────────────────────────────────────
+#   IDE específico de JetBrains (opcional)
+# ──────────────────────────────────────────────────────────────────
+.idea/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+Thumbs.db
+new-diy-project.sh
+sync-bom.sh

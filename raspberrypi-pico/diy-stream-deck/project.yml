@@ -1,0 +1,62 @@
+# ──────────────────────────────────────────────────────────────────
+#  project.yml  —  Metadata estándar para proyectos DIY
+#  Generado automáticamente por new-diy-project.sh v2.1
+# ──────────────────────────────────────────────────────────────────
+
+project:
+  name: "diy-stream-deck"
+  title: "DIY stream deck"
+  description: "Con el boom de querer tener el control de nuestros dispositivos con Macro key, nace querer contruir un macro key touch, usando raspberrypi pico y un display Nextion de 2.4""
+  version: "0.1.0"
+  status: "stable"          # draft | in-progress | stable | archived
+  difficulty: "intermediate"    # beginner | intermediate | advanced
+  created_at: "2026-06-14"
+  updated_at: "2026-06-14"
+
+author:
+  name: "Irvyn Sánchez"
+  github: "irvyncornejo"
+
+hardware:
+  platform: "raspberry-pi-pico"
+  language: "python"
+  category: "macro-key"
+
+tags:
+  - "hmi"
+  - "pico"
+  - "python"
+structure:
+  has_hmi: true                  # Incluye pantalla/HMI Nextion?
+  has_schematics: false          # Tiene diagramas de circuito?
+  has_3d_files: false            # Tiene archivos STL/CAD?
+  has_tests: false               # Incluye pruebas unitarias?
+
+links:
+  github: "https://github.com/irvyncornejo/diy-projects"
+  demo_video: ""
+  docs: ""
+
+media:
+  cover_image: "assets/images/cover.jpg"
+  gallery: []
+
+bom:
+  - name: "Raspberrypi pico"
+    description: "Soc"
+    qty: 1
+    unit_price_mxn: 5
+    buy_links:
+      other: "https://www.mercadolibre.com.mx/raspberry-pi-pico-rp2040-dual-core-arm-cortex-m0-micro-usb-pines-soldados-tecneu/p/MLM50006218?pdp_filters=item_id:MLM2310509247#is_advertising=true&searchVariation=MLM50006218&backend_model=search-backend&be_origin=backend&position=4&search_layout=grid&type=pad&tracking_id=03e3db55-a9f0-4743-9862-252d7bf84df2&ad_domain=VQCATCORE_LST&ad_position=4&ad_click_id=Mjc0ZDE2OTEtZTUyZC00ODU5LThmYzAtNzJjNzVjYjUzZDlh"
+  - name: "Nextion display"
+    description: "HMI"
+    qty: 1
+    unit_price_mxn: 35
+    buy_links:
+      other: "https://www.mercadolibre.com.mx/pantalla-lcd-tactil-de-24-pulgadas-sge10266/p/MLM2051845697#polycard_client=search-desktop&be_origin=backend&search_layout=grid&position=4&type=product&tracking_id=955576d2-567b-43dd-a6e5-6c26a334eb32&wid=MLM2399398819&sid=search"
+  - name: "RGB"
+    description: "-"
+    qty: 1
+    unit_price_mxn: 2
+notes: |
+  Agregar notas del proyecto aqui...

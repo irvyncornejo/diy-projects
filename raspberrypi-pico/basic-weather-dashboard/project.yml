@@ -1,0 +1,55 @@
+# ──────────────────────────────────────────────────────────────────
+#  project.yml  —  Metadata estándar para proyectos DIY
+#  Generado automáticamente por new-diy-project.sh v2.1
+# ──────────────────────────────────────────────────────────────────
+
+project:
+  name: "basic-weather-dashboard"
+  title: "Visualización de clima"
+  description: "Visualizaciòn del clima"
+  version: "0.1.0"
+  status: "in-progress"          # draft | in-progress | stable | archived
+  difficulty: "beginner"    # beginner | intermediate | advanced
+  created_at: "2026-06-14"
+  updated_at: "2026-06-14"
+
+author:
+  name: "Irvyn Sánchez"
+  github: "irvyncornejo"
+
+hardware:
+  platform: "raspberry-pi-pico"
+  language: "python"
+  category: "control"
+
+tags:
+  - "pico"
+  - "hmi"
+structure:
+  has_hmi: true                  # Incluye pantalla/HMI Nextion?
+  has_schematics: false          # Tiene diagramas de circuito?
+  has_3d_files: false            # Tiene archivos STL/CAD?
+  has_tests: false               # Incluye pruebas unitarias?
+
+links:
+  github: "https://github.com/irvyncornejo/diy-projects"
+  demo_video: ""
+  docs: ""
+
+media:
+  cover_image: "assets/images/cover.jpg"
+  gallery: []
+
+bom:   - name: "Rasbpberrypi pico"
+    description: "Soc"
+    qty: 1
+    unit_price_mxn: 150
+    buy_links:
+  - name: "Nextion display 2.4""
+    description: "HMI"
+    qty: 1
+    unit_price_mxn: 700
+    buy_links:
+
+notes: |
+  Agregar notas del proyecto aqui...

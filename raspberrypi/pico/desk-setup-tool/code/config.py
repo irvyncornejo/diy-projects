@@ -1,4 +1,0 @@
-ssid = 'INFINITUM87A4_2.4'
-password = 'Q4AG3Yd3Hm'
-key = 'b851032325bf4e1b9e625848232102'
-q = '19.3682968,-99.1265947'

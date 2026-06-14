@@ -97,7 +97,7 @@ echo -e "${C_YELLOW}  Ingresa los componentes uno por uno.
   Deja en blanco el nombre para terminar.${C_RESET}\n"
 
 BOM_YAML=""
-BOM_CSV="qty,component,description,unit_price_usd,buy_amazon,buy_aliexpress,buy_other\n"
+BOM_CSV="qty,component,description,unit_price_mxn,buy_amazon,buy_aliexpress,buy_other\n"
 BOM_README=""
 BOM_COUNT=0
 
@@ -108,7 +108,7 @@ while true; do
   read -rp "$(echo -e ${C_CYAN})    Descripción breve: $(echo -e ${C_RESET})"                       COMP_DESC
   read -rp "$(echo -e ${C_CYAN})    Cantidad [1]: $(echo -e ${C_RESET})"                             COMP_QTY
   COMP_QTY="${COMP_QTY:-1}"
-  read -rp "$(echo -e ${C_CYAN})    Precio unitario USD estimado (ej: 3.50) [0]: $(echo -e ${C_RESET})" COMP_PRICE
+  read -rp "$(echo -e ${C_CYAN})    Precio unitario MXN estimado (ej: 3.50) [0]: $(echo -e ${C_RESET})" COMP_PRICE
   COMP_PRICE="${COMP_PRICE:-0}"
 
   echo -e "    ${C_YELLOW}Links de compra (opcional — Enter para omitir):${C_RESET}"
@@ -119,7 +119,7 @@ while true; do
   BOM_YAML+="  - name: \"${COMP_NAME}\"\n"
   BOM_YAML+="    description: \"${COMP_DESC}\"\n"
   BOM_YAML+="    qty: ${COMP_QTY}\n"
-  BOM_YAML+="    unit_price_usd: ${COMP_PRICE}\n"
+  BOM_YAML+="    unit_price_mxn: ${COMP_PRICE}\n"
   BOM_YAML+="    buy_links:\n"
   [ -n "$LINK_AMAZON" ] && BOM_YAML+="      amazon: \"${LINK_AMAZON}\"\n"
   [ -n "$LINK_ALI"    ] && BOM_YAML+="      aliexpress: \"${LINK_ALI}\"\n"
@@ -143,14 +143,36 @@ TOTAL_COST=0
 if [ "$BOM_COUNT" -gt 0 ]; then
   TOTAL_COST=$(echo -e "$BOM_YAML" | awk '
     /qty:/ { qty = $2 }
-    /unit_price_usd:/ { price = $2; total += qty * price }
+    /unit_price_mxn:/ { price = $2; total += qty * price }
     END { print total + 0 }
   ')
 fi
 
 # ── Directorio destino ────────────────────────────────────────────
-read -rp "$(echo -e ${C_CYAN})Directorio base donde crear el proyecto [.]: $(echo -e ${C_RESET})" BASE_DIR
-BASE_DIR="${BASE_DIR:-.}"
+echo -e "\n${C_BOLD}Directorio base donde crear el proyecto:${C_RESET}"
+dirs=(".")
+for d in */; do
+  if [ -d "$d" ]; then
+    dirname="${d%/}"
+    # Excluir directorios especiales ocultos o estándar del repositorio
+    if [[ "$dirname" != "tests" && "$dirname" != "docs" && "$dirname" != "assets" && "$dirname" != "hmi" && "$dirname" != "code" && "$dirname" != "node_modules" && ! "$dirname" =~ ^\..* ]]; then
+      dirs+=("$dirname")
+    fi
+  fi
+done
+
+for i in "${!dirs[@]}"; do
+  echo "  $i) ${dirs[$i]}"
+done
+
+read -rp "$(echo -e ${C_CYAN})Selecciona el directorio [0-$((${#dirs[@]}-1))] [0]: $(echo -e ${C_RESET})" DIR_OPT
+DIR_OPT="${DIR_OPT:-0}"
+
+if [[ "$DIR_OPT" =~ ^[0-9]+$ ]] && [ "$DIR_OPT" -lt "${#dirs[@]}" ]; then
+  BASE_DIR="${dirs[$DIR_OPT]}"
+else
+  BASE_DIR="."
+fi
 BASE_DIR="${BASE_DIR%/}"
 
 PROJECT_PATH="${BASE_DIR}/${PROJECT_NAME}"
@@ -166,7 +188,7 @@ echo -e "  Categoría : ${CATEGORY}"
 echo -e "  Dificultad: ${DIFFICULTY}"
 echo -e "  Lenguaje  : ${LANGUAGE}"
 echo -e "  Componentes BOM: ${BOM_COUNT}"
-[ "$BOM_COUNT" -gt 0 ] && echo -e "  Costo estimado: \$${TOTAL_COST} USD"
+[ "$BOM_COUNT" -gt 0 ] && echo -e "  Costo estimado: \$${TOTAL_COST} MXN"
 echo ""
 
 read -rp "$(echo -e ${C_CYAN})¿Confirmar y crear proyecto? [s/N]: $(echo -e ${C_RESET})" CONFIRM
@@ -189,7 +211,7 @@ done
 
 # ── BOM bloque YAML ───────────────────────────────────────────────
 if [ "$BOM_COUNT" -eq 0 ]; then
-  BOM_FINAL="[]   # Añadir componentes con: name, qty, unit_price_usd, buy_links"
+  BOM_FINAL="[]   # Añadir componentes con: name, qty, unit_price_mxn, buy_links"
 else
   BOM_FINAL="$(echo -e "$BOM_YAML")"
 fi
